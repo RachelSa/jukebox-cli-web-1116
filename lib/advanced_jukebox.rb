@@ -45,13 +45,11 @@ def play(my_songs)
   response = gets.chomp
   if  arr.include?(response)
   	puts "Playing #{response}"
-    system 'open my_songs.val(response)'
+    system open my_songs.val(response)
   else puts "Invalid input, please try again"
   end
 end
 
-
-end
 
 def exit_jukebox
   puts "Goodbye"
@@ -64,11 +62,11 @@ def run(my_songs)
     command = gets.chomp
   	until command == "exit"
       if command == "list"
-        list(songs)
+        list(my_songs)
         puts "Please enter a command:"
         command = gets.chomp
       elsif command == "play"
-        play(songs)
+        play(my_songs)
         puts "Please enter a command:"
         command = gets.chomp
       elsif command == "help"
