@@ -12,20 +12,28 @@
  "Graduation Failed" => '/Users/rachelsalois/.atom/code/labs/jukebox-cli-web-1116/audio/Emerald-Park/07.mp3'
  }
 
-def help
-  #this method should be the same as in jukebox.rb
-
-end
+ def help
+ puts "I accept the following commands:"
+ puts "- help : displays this help message"
+ puts "- list : displays a list of songs you can play"
+ puts "- play : lets you choose a song to play"
+ puts "- exit : exits this program"
+ end
 
 
 
 def list(my_songs)
   #this method is different! Collect the keys of the my_songs hash and
   #list the songs by name
+
+  arr = my_songs.keys
+  arr.each_with_index { |val,index| puts "#{index+1}. #{val}" }
 end
 
 
+
 def play(my_songs)
+  arr = my_songs.keys
   #this method is slightly different!
   #you should still ask the user for input and collect their song choice
   #this time, only allow user's to input a song name
@@ -33,13 +41,42 @@ def play(my_songs)
   #if it isn't, tell them their choice is invalid
   #if it is, play the song using the system 'open <file path>' syntax
   #get the file path of the song by looking it up in the my_songs hash
+  puts "Please enter a song name:"
+  response = gets.chomp
+  if  arr.include?(response)
+  	puts "Playing #{response}"
+    system 'open my_songs.val(response)'
+  else puts "Invalid input, please try again"
+  end
+end
+
 
 end
 
 def exit_jukebox
-  #this method is the same as in jukebox.rb
+  puts "Goodbye"
+
 end
 
 def run(my_songs)
-  #this method is the same as in jukebox.rb
-end
+    help
+    puts "Please enter a command:"
+    command = gets.chomp
+  	until command == "exit"
+      if command == "list"
+        list(songs)
+        puts "Please enter a command:"
+        command = gets.chomp
+      elsif command == "play"
+        play(songs)
+        puts "Please enter a command:"
+        command = gets.chomp
+      elsif command == "help"
+        help
+        puts "Please enter a command:"
+        command = gets.chomp
+      end
+
+    end
+    exit_jukebox
+  end
